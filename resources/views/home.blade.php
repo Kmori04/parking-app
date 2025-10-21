@@ -3,13 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Campus Parking System</title>
 
-
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 </head>
 <body>
-    <h1>Welcome to Columban College</h1>
+    <header>
+        <h2>WELCOME TO COLUMBAN COLLEGE</h2>
+        <nav>
+            <button>User Data</button>
+            <a class="nav-btn" href="{{ route('availability') }}">Parking Availability</a>
+            <button>Parking Records</button>
+            <button>Date Reports</button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="text-section">
+            <h1>CAMPUS<br>PARKING<br>SYSTEM</h1>
+        </div>
+
+        <div class="logo-placeholder">
+          
+        </div>
+    </main>
 </body>
 </html>
