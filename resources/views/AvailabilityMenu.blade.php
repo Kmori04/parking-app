@@ -15,7 +15,7 @@
 
   <main class="center">
      <a href="{{ route('availability.cars') }}" class="big-btn">CARS</a>
-    <a href="#" class="big-btn">MOTORS</a>
+    <a href="{{ route('availability.motors') }}" class="big-btn">MOTORS</a>
     <a href="#" class="big-btn">VIP</a>
   </main>
 </body>

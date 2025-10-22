@@ -181,13 +181,13 @@
 </div>
 
 <div class="i1to7-grid">
-  <div class="ibox"><span>I1</span></div>
-  <div class="ibox"><span>I2</span></div>
-  <div class="ibox"><span>I3</span></div>
-  <div class="ibox"><span>I4</span></div>
-  <div class="ibox"><span>I5</span></div>
-  <div class="ibox"><span>I6</span></div>
-  <div class="ibox"><span>I7</span></div>
+  <div class="ibox"><span>G1</span></div>
+  <div class="ibox"><span>G2</span></div>
+  <div class="ibox"><span>G3</span></div>
+  <div class="ibox"><span>G4</span></div>
+  <div class="ibox"><span>G5</span></div>
+  <div class="ibox"><span>G6</span></div>
+  <div class="ibox"><span>G7</span></div>
 </div>
 
 
