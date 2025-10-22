@@ -11,3 +11,17 @@ Route::post('/availability/cars/{slotId}/status', [CarParkingController::class, 
     ->name('availability.cars.update');
 Route::get('/availability/motors', [CarParkingController::class, 'motors'])->name('availability.motors');
 Route::post('/availability/motors/{slotId}/status', [CarParkingController::class, 'updateMotorStatus'])->name('availability.motors.update');
+
+
+
+Route::get('/availability/vips', [CarParkingController::class, 'vips'])
+    ->name('availability.vips');
+
+// Optional short URL to the same VIP page
+Route::get('/vips', [CarParkingController::class, 'vips'])
+    ->name('vips');
+
+// AJAX/FORM status update for VIP (expects numeric Slot_id)
+Route::patch('/vips/{slotId}/status', [CarParkingController::class, 'updateVipStatus'])
+    ->whereNumber('slotId')
+    ->name('vips.update');

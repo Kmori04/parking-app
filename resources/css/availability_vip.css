@@ -35,15 +35,9 @@ main h1{
   display:grid;grid-template-columns:1fr 1fr;gap:20px;align-self:center;
 }
 .panel{width:100%}
-.panel-title {
-  font-size: 16px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: -10px 0 8px; 
-  opacity: .9;
-  text-align: center;
-
+.panel-title{
+  font-size:16px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1px;margin:-10px 0 8px;opacity:.9;text-align:center;
 }
 table{
   width:100%;border-collapse:collapse;background:rgba(255,255,255,.05);
@@ -92,17 +86,9 @@ td.action-cell form{display:inline-flex;align-items:center;justify-content:cente
   position:relative;
   margin-top:20px;
 }
-
-.map-side .panel-title {
-  margin-top: -33px;      
-  margin-bottom: 8px;     
-  font-size: 22px;     
-  font-weight: 900;       
-  letter-spacing: 1.5px; 
-}
 .map-side .panel-title{
-  display: inline-block;
-  transform: translateY(-20px); 
+  margin-top:-33px;margin-bottom:8px;font-size:22px;font-weight:900;letter-spacing:1.5px;
+  display:inline-block;transform:translateY(-20px);
 }
 .campus{
   width:880px; height:575px;
@@ -145,102 +131,50 @@ td.action-cell form{display:inline-flex;align-items:center;justify-content:cente
 /* ===== Map pins (shared) ===== */
 .map-slot{
   position:absolute;
-  --w: 54px;         
-  --h: 34px;         
-  --rot: 0deg;
-  --text-rot: 0deg;
-  --gx: 0px;
-  --gy: 0px;
-
-  width:var(--w);
-  height:var(--h);
-  border-radius:4px;
-  border:1px solid rgba(0,0,0,.3);
+  --w:54px; --h:34px; --rot:0deg; --text-rot:0deg; --gx:0px; --gy:0px;
+  width:var(--w);height:var(--h);
+  border-radius:4px;border:1px solid rgba(0,0,0,.3);
   box-shadow:0 2px 6px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.2);
   font-weight:800; letter-spacing:.4px;
   display:flex; align-items:center; justify-content:center;
   user-select:none;
-  transform: translate(-50%,-50%) translate(var(--gx), var(--gy)) rotate(var(--rot));
+  transform:translate(-50%,-50%) translate(var(--gx),var(--gy)) rotate(var(--rot));
   transition:transform .08s, filter .15s, background .2s, color .2s;
 }
-.map-slot > span{ display:inline-block; transform: rotate(var(--text-rot)); }
+.map-slot>span{display:inline-block; transform:rotate(var(--text-rot));}
+.map-slot:hover{ filter:brightness(0.8); }
 
-
-.map-slot:hover{
-  filter:brightness(0.8);
-}
-
-/* Interactives (F only) */
+/* Interactive states (used by group G) */
 .map-slot.available{ background:#143a8b; color:#fff; cursor:pointer; }
 .map-slot.taken{     background:#8b2d2d; color:#fff; cursor:pointer; }
 .map-slot.available:active,
 .map-slot.taken:active{
-  transform: translate(-50%,-50%) translate(var(--gx), var(--gy)) rotate(var(--rot));
+  transform:translate(-50%,-50%) translate(var(--gx),var(--gy)) rotate(var(--rot));
 }
 .map-slot:focus{ outline:none; }
 
-/* Non-interactive groups (default white look) */
+/* Non-interactive groups */
 .map-slot.disabled-slot{
   background:#f1f1f1; color:#1b1f4e; border:1px solid rgba(0,0,0,.25);
-  cursor:default; 
-}
-
-
-
-/* C1–C7: tall white tiles (no rotation; force white) */
-.map-slot.group-C{
-  --w: 28px;       
-  --h: 48px;        
-  --rot: 0deg;
-  --text-rot: 0deg;
-  background:#f1f1f1 !important;
-  color:#1b1f4e !important;
-  border:1px solid rgba(0,0,0,.25);
   cursor:default;
 }
 
+
 .map-slot.group-C,
-.map-slot.group-E,
-.map-slot.group-G{
-  --w: 28px;     
-  --h: 48px;    
-  --rot: 0deg;
-  --text-rot: 0deg;
-  background:#f1f1f1 !important;
-  color:#1b1f4e !important;
-  border:1px solid rgba(0,0,0,.25);
-  cursor:default; 
+.map-slot.group-E{
+  --w:28px; --h:48px; --rot:0deg; --text-rot:0deg;
+  background:#f1f1f1 !important; color:#1b1f4e !important; border:1px solid rgba(0,0,0,.25);
 }
 
+/* optional rotation */
+.map-slot.rotated{ --w:34px; --h:54px; --rot:90deg; --text-rot:-90deg; }
+
+/* F sizes */
+.map-slot.f-pillar{ --w:21px; --h:42px; border-radius:3px; }
+.map-slot.group-F:not(.f-pillar){ --w:42px; --h:21px; border-radius:4px; }
 
 
-.map-slot.rotated{
-  --w: 34px;
-  --h: 54px;
-  --rot: 90deg;
-  --text-rot: -90deg;
-}
-
-/* F1–F6: skinny pillars */
-.map-slot.f-pillar{
-  --w: 21px;
-  --h: 42px;
-  border-radius:3px;
-}
-.map-slot.f-pillar.available:active,
-.map-slot.f-pillar.taken:active{
-  transform: translate(-50%,-50%) translate(var(--gx), var(--gy)) rotate(var(--rot));
-}
-
-/* F7–F18: regular F tiles (horizontal rectangles) */
-.map-slot.group-F:not(.f-pillar){
-  --w: 42px;
-  --h: 21px;
-  border-radius:4px;
-}
-
-/* Bottom G row exact placement (wins over inline) */
-.group-G{ --gx: 0px; --gy: 0px; }
+.group-G{ --gx:0px; --gy:0px; }
 .map-slot[data-slot-number="G1"]{ left:460px !important; top:435px !important; }
 .map-slot[data-slot-number="G2"]{ left:500px !important; top:435px !important; }
 .map-slot[data-slot-number="G3"]{ left:540px !important; top:435px !important; }
@@ -249,10 +183,14 @@ td.action-cell form{display:inline-flex;align-items:center;justify-content:cente
 .map-slot[data-slot-number="G6"]{ left:660px !important; top:435px !important; }
 .map-slot[data-slot-number="G7"]{ left:700px !important; top:435px !important; }
 
+.map-slot.group-G{
+  --w: 28px;  
+  --h: 54px;  
+}
+
 /* Legend */
 .map-legend{
-  position:absolute; bottom:-19px; left:52%;
-  transform:translateX(-50%);
+  position:absolute; bottom:-19px; left:52%; transform:translateX(-50%);
   font-size:15px; font-weight:600; color:#fff;
   background:rgba(0,0,0,.3); padding:6px 14px; border-radius:6px;
   display:flex; align-items:center; gap:12px;
@@ -262,3 +200,10 @@ td.action-cell form{display:inline-flex;align-items:center;justify-content:cente
 .legend-dot.avail{ background:#143a8b; }
 .legend-dot.taken{ background:#8b2d2d; }
 .legend-dot.restricted{ background:#e4e4e4; border:1px solid rgba(0,0,0,.25); }
+
+/* Optional: VIP header label if you add it in Blade */
+.bar.vip-area{
+  top:18px; left:50%; transform:translateX(-50%);
+  padding:8px 16px; background:#213b74; color:#fff; border-radius:6px;
+  font-weight:900; letter-spacing:1px;
+}
