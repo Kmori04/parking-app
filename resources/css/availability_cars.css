@@ -28,7 +28,7 @@ main{
   align-items:center;
   gap:22px;
   min-height:100vh;
-  padding:90px 16px 40px;
+  padding:40px 16px 40px;
   text-align:center;
 }
 main h1{
