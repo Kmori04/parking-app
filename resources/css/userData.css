@@ -1,5 +1,7 @@
+/* ===== Reset ===== */
 *{margin:0;padding:0;box-sizing:border-box}
 
+/* ===== Base ===== */
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:linear-gradient(to bottom,#000c3f,#132b74);
@@ -61,23 +63,38 @@ header{
 }
 
 /* ===== Table ===== */
-.table-wrap{overflow:auto;max-height:75vh}
+.table-wrap{
+  overflow:auto;           /* both axes: enables horizontal and vertical scrolling */
+  max-height:75vh;
+  position:relative;       /* helps sticky logic in some browsers */
+  -webkit-overflow-scrolling:touch;
+}
 
 table{
   width:100%;
   border-collapse:collapse;
 }
-thead{
-  background:#0f1538;
-}
+
+/* Keep thead transparent—sticky th paints its own background */
+thead{ background:transparent; }
+
+/* Sticky header cells with solid background that MOVES with text */
 thead th{
-  position:sticky; top:0;           /* keep headers visible while scrolling */
+  position:sticky;
+  top:0;                           /* stay visible when vertically scrolling */
   padding:10px;
   text-align:left;
   font-size:13px;
   color:#a9b5ff;
+
+  background:#0f1538;              /* solid (not transparent) background */
+  background-clip:padding-box;     /* avoid under-border bleed */
   border-bottom:1px solid #263270;
+
+  z-index:5;                       /* above body cells */
+  box-shadow:0 1px 0 rgba(0,0,0,.25);
 }
+
 tbody td{
   padding:10px;
   font-size:14px;
@@ -92,71 +109,64 @@ tbody tr:hover{ background:#10194e }
   font-weight:700;
   font-size:12px;
 }
-.badge.unlimited{
-  background:#3245aa;
-  color:#e4eaff;
-}
-.badge.temp{
-  background:#7a1420;
-  color:#feecef;
-}
-.badge.count{
-  background:#0f6b28;
-  color:#eaffef;
+.badge.unlimited{ background:#3245aa; color:#e4eaff }
+.badge.temp{ background:#7a1420; color:#feecef }
+.badge.count{ background:#0f6b28; color:#eaffef }
+
+/* ===== Actions (top-right add form) ===== */
+.actions-top{
+  margin-bottom:20px;
+  display:flex;
+  justify-content:flex-end;
 }
 
-
-.actions-top {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-end;
+.add-form input{
+  padding:6px 10px;
+  border-radius:4px;
+  border:1px solid #3b3f7f;
+  background:#0f1538;
+  color:#fff;
+  margin-right:8px;
+  font-size:13px;
 }
 
-.add-form input {
-  padding: 6px 10px;
-  border-radius: 4px;
-  border: 1px solid #3b3f7f;
-  background: #0f1538;
-  color: #fff;
-  margin-right: 8px;
-  font-size: 13px;
+.add-btn{
+  background:#2b3cae;
+  color:#fff;
+  border:none;
+  padding:6px 12px;
+  border-radius:6px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .25s;
+}
+.add-btn:hover{ background:#3d52ff }
+
+/* ===== Row action buttons ===== */
+.action-cell{
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
 
-.add-btn {
-  background: #2b3cae;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background .25s;
+.edit-btn,.delete-btn{
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:12px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  transition:background .25s;
 }
-.add-btn:hover { background: #3d52ff; }
+.edit-btn{ background:#2b3cae; color:#fff }
+.edit-btn:hover{ background:#3d52ff }
+.delete-btn{ background:#a52020; color:#fff }
+.delete-btn:hover{ background:#e03535 }
 
-.action-cell {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.edit-btn, .delete-btn {
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  transition: background .25s;
-}
-.edit-btn { background:#2b3cae; color:#fff; }
-.edit-btn:hover { background:#3d52ff; }
-.delete-btn { background:#a52020; color:#fff; }
-.delete-btn:hover { background:#e03535; }
-
- .actions { white-space: nowrap; }
-    .btn { display:inline-block; padding:.45rem .75rem; border-radius:.5rem; font-weight:600; text-decoration:none }
-    .btn-edit { background:#2b74ff; color:#fff; border:1px solid rgba(255,255,255,.15) }
-    .btn-edit:hover { filter:brightness(.95) }
-    .flash { margin:0 0 12px; padding:.65rem .9rem; border-radius:.5rem; font-weight:600 }
-    .flash.success { background:#123e1d; color:#b5ffcc; border:1px solid #1e7a39 }
+/* ===== Generic buttons / flashes (if used) ===== */
+.actions{ white-space:nowrap }
+.btn{ display:inline-block; padding:.45rem .75rem; border-radius:.5rem; font-weight:600; text-decoration:none }
+.btn-edit{ background:#2b74ff; color:#fff; border:1px solid rgba(255,255,255,.15) }
+.btn-edit:hover{ filter:brightness(.95) }
+.flash{ margin:0 0 12px; padding:.65rem .9rem; border-radius:.5rem; font-weight:600 }
+.flash.success{ background:#123e1d; color:#b5ffcc; border:1px solid #1e7a39 }
