@@ -12,7 +12,7 @@
     <header>
         <h2>WELCOME TO COLUMBAN COLLEGE</h2>
         <nav>
-            <button>User Data</button>
+             <a class="nav-btn" href="{{ route('userData') }}">User Data</a>
             <a class="nav-btn" href="{{ route('availability') }}">Parking Availability</a>
             <button>Parking Records</button>
 

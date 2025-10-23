@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarParkingController;
+use App\Http\Controllers\ParkingRegistryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CarParkingController::class, 'showAllCarParkingStatus'])->name('home');
@@ -17,11 +18,17 @@ Route::post('/availability/motors/{slotId}/status', [CarParkingController::class
 Route::get('/availability/vips', [CarParkingController::class, 'vips'])
     ->name('availability.vips');
 
-// Optional short URL to the same VIP page
+
 Route::get('/vips', [CarParkingController::class, 'vips'])
     ->name('vips');
 
-// AJAX/FORM status update for VIP (expects numeric Slot_id)
+
 Route::patch('/vips/{slotId}/status', [CarParkingController::class, 'updateVipStatus'])
     ->whereNumber('slotId')
     ->name('vips.update');
+
+
+Route::get('/registry', [ParkingRegistryController::class, 'index'])
+     ->name('registry.index');
+Route::get('/user-data', [ParkingRegistryController::class, 'userData'])
+     ->name('userData');
