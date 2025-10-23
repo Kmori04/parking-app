@@ -15,7 +15,7 @@
             <button>User Data</button>
             <a class="nav-btn" href="{{ route('availability') }}">Parking Availability</a>
             <button>Parking Records</button>
-            <button>Date Reports</button>
+
         </nav>
     </header>
 
