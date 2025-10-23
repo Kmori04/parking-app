@@ -12,7 +12,7 @@
   </header>
 
   <main class="container">
-    <h1 class="page-title">Registered Parkers Information</h1>
+    <h1 class="page-title">Registered ParkersHAHAHA</h1>
 
     <section class="panel">
       <h2>All Registered Users</h2>
