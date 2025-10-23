@@ -28,7 +28,16 @@ Route::patch('/vips/{slotId}/status', [CarParkingController::class, 'updateVipSt
     ->name('vips.update');
 
 
-Route::get('/registry', [ParkingRegistryController::class, 'index'])
-     ->name('registry.index');
-Route::get('/user-data', [ParkingRegistryController::class, 'userData'])
-     ->name('userData');
+Route::get('/registry', [ParkingRegistryController::class, 'index'])->name('registry.index');
+Route::get('/user-data', [ParkingRegistryController::class, 'userData'])->name('userData');
+
+
+Route::get('/users', [ParkingRegistryController::class, 'userData'])->name('users.index');
+
+Route::get('/users/{entry}/edit', [ParkingRegistryController::class, 'edit'])
+    ->whereNumber('entry')
+    ->name('users.edit');
+
+Route::put('/users/{entry}', [ParkingRegistryController::class, 'update'])
+    ->whereNumber('entry')
+    ->name('users.update');

@@ -102,5 +102,24 @@ class ParkingRegistryController extends Controller
          ]);
         }
 
-        
+        public function edit($entry) {
+    $user = ParkingRegistry::findOrFail($entry);
+    return view('userData_edit', [
+        'user' => $user,
+        'options' => [
+            'vehicles'    => ParkingRegistry::VEHICLE_TYPES,
+            'departments' => ParkingRegistry::DEPARTMENTS,
+            'labels'      => ParkingRegistry::PARKING_LABELS,
+        ],
+    ]);
+}
+
+public function update(Request $req, $entry) {
+    $user = ParkingRegistry::findOrFail($entry);
+    $data = $req->validate(ParkingRegistry::rules(update:true), ParkingRegistry::messages());
+    $user->applyValidated($data)->save();
+
+    return redirect()->route('users.index')->with('ok', 'User updated.');
+}
+
 }
