@@ -39,17 +39,9 @@
           </thead>
           <tbody>
             @foreach($userData as $user)
-              @php
-                // Fix for Full Name (handles both Full_name and Full Name column cases)
-                $fullName =
-                  ($user->Full_name ?? null)
-                  ?? (isset($user->{'Full Name'}) ? $user->{'Full Name'} : null)
-                  ?? ($user['Full_name'] ?? null)
-                  ?? ($user['Full Name'] ?? null);
-              @endphp
               <tr>
                 <td>{{ $user->Entry_id }}</td>
-                <td>{{ $fullName ?? '—' }}</td>
+                <td>{{ $user->Full_Name ?? '—' }}</td>
                 <td>{{ $user->Id_Number }}</td>
                 <td>{{ $user->Contact_Number }}</td>
                 <td>{{ $user->Position }}</td>
@@ -57,7 +49,9 @@
                 <td>{{ $user->Vehicle_Type }}</td>
                 <td>{{ $user->Department ?? '—' }}</td>
                 <td>
-                  <span class="badge {{ $user->status_class }}">{{ $user->status_label }}</span>
+                  <span class="badge {{ $user->status_class ?? '' }}">
+                    {{ $user->status_label ?? ($user->Parking_counts ?? '—') }}
+                  </span>
                 </td>
                 <td class="actions">
                   <a class="btn btn-edit" href="{{ route('users.edit', $user->Entry_id) }}">Edit</a>
