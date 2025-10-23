@@ -153,3 +153,10 @@ tbody tr:hover{ background:#10194e }
 .edit-btn:hover { background:#3d52ff; }
 .delete-btn { background:#a52020; color:#fff; }
 .delete-btn:hover { background:#e03535; }
+
+ .actions { white-space: nowrap; }
+    .btn { display:inline-block; padding:.45rem .75rem; border-radius:.5rem; font-weight:600; text-decoration:none }
+    .btn-edit { background:#2b74ff; color:#fff; border:1px solid rgba(255,255,255,.15) }
+    .btn-edit:hover { filter:brightness(.95) }
+    .flash { margin:0 0 12px; padding:.65rem .9rem; border-radius:.5rem; font-weight:600 }
+    .flash.success { background:#123e1d; color:#b5ffcc; border:1px solid #1e7a39 }

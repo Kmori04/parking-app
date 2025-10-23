@@ -14,6 +14,11 @@
   <main class="container">
     <h1 class="page-title">Registered Parkers Information</h1>
 
+    {{-- success message after update --}}
+    @if(session('ok'))
+      <div class="flash success">{{ session('ok') }}</div>
+    @endif
+
     <section class="panel">
       <h2>All Registered Users</h2>
       <div class="table-wrap">
@@ -29,13 +34,22 @@
               <th>Vehicle Type</th>
               <th>Department</th>
               <th>Parking Counts</th>
+              <th class="actions">Actions</th>
             </tr>
           </thead>
           <tbody>
             @foreach($userData as $user)
+              @php
+                // Fix for Full Name (handles both Full_name and Full Name column cases)
+                $fullName =
+                  ($user->Full_name ?? null)
+                  ?? (isset($user->{'Full Name'}) ? $user->{'Full Name'} : null)
+                  ?? ($user['Full_name'] ?? null)
+                  ?? ($user['Full Name'] ?? null);
+              @endphp
               <tr>
                 <td>{{ $user->Entry_id }}</td>
-                <td>{{ $user->Full_name }}</td>
+                <td>{{ $fullName ?? '—' }}</td>
                 <td>{{ $user->Id_Number }}</td>
                 <td>{{ $user->Contact_Number }}</td>
                 <td>{{ $user->Position }}</td>
@@ -43,13 +57,10 @@
                 <td>{{ $user->Vehicle_Type }}</td>
                 <td>{{ $user->Department ?? '—' }}</td>
                 <td>
-                  @if(strtolower($user->Parking_counts) === 'no parking limit')
-                    <span class="badge unlimited">No Parking Limit</span>
-                  @elseif(strtolower($user->Parking_counts) === 'temporary parking')
-                    <span class="badge temp">Temporary Parking</span>
-                  @else
-                    <span class="badge count">{{ $user->Parking_counts }}</span>
-                  @endif
+                  <span class="badge {{ $user->status_class }}">{{ $user->status_label }}</span>
+                </td>
+                <td class="actions">
+                  <a class="btn btn-edit" href="{{ route('users.edit', $user->Entry_id) }}">Edit</a>
                 </td>
               </tr>
             @endforeach
