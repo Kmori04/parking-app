@@ -43,14 +43,7 @@
         <div class="form-row">
           <div>
             <label>Full Name</label>
-            @php
-              // Robust fallback: supports model attr "Full_name" OR column "Full Name"
-              $fullNameValue = old(
-                'Full_name',
-                $user->Full_name ?? ($user->{'Full Name'} ?? null)
-              );
-            @endphp
-            <input name="Full_name" value="{{ $fullNameValue }}" required>
+            <input name="Full_Name" value="{{ old('Full_Name', $user->Full_Name) }}" required>
           </div>
           <div>
             <label>ID Number</label>
