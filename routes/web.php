@@ -13,24 +13,18 @@ Route::post('/availability/cars/{slotId}/status', [CarParkingController::class, 
 Route::get('/availability/motors', [CarParkingController::class, 'motors'])->name('availability.motors');
 Route::post('/availability/motors/{slotId}/status', [CarParkingController::class, 'updateMotorStatus'])->name('availability.motors.update');
 
-
-
 Route::get('/availability/vips', [CarParkingController::class, 'vips'])
     ->name('availability.vips');
 
-
 Route::get('/vips', [CarParkingController::class, 'vips'])
     ->name('vips');
-
 
 Route::patch('/vips/{slotId}/status', [CarParkingController::class, 'updateVipStatus'])
     ->whereNumber('slotId')
     ->name('vips.update');
 
-
 Route::get('/registry', [ParkingRegistryController::class, 'index'])->name('registry.index');
 Route::get('/user-data', [ParkingRegistryController::class, 'userData'])->name('userData');
-
 
 Route::get('/users', [ParkingRegistryController::class, 'userData'])->name('users.index');
 
@@ -41,3 +35,17 @@ Route::get('/users/{entry}/edit', [ParkingRegistryController::class, 'edit'])
 Route::put('/users/{entry}', [ParkingRegistryController::class, 'update'])
     ->whereNumber('entry')
     ->name('users.update');
+
+
+// ----- [ADD] begin: create & delete routes -----
+
+// Create (Add) new parker record
+Route::post('/user-data', [App\Http\Controllers\ParkingRegistryController::class, 'store'])
+    ->name('users.store');
+
+// Delete parker record
+Route::delete('/users/{entry}', [App\Http\Controllers\ParkingRegistryController::class, 'destroy'])
+    ->whereNumber('entry')
+    ->name('users.destroy');
+
+// ----- [ADD] end -----
