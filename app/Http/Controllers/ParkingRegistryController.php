@@ -130,5 +130,5 @@ class ParkingRegistryController extends Controller
             : $user->fill($data)->save();
 
         return redirect()->route('users.index')->with('ok', 'User updated.');
-    }
+    } 
 }
