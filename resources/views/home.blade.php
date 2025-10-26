@@ -14,7 +14,7 @@
         <nav>
              <a class="nav-btn" href="{{ route('userData') }}">User Data</a>
             <a class="nav-btn" href="{{ route('availability') }}">Parking Availability</a>
-            <button>Parking Records</button>
+            <a class="nav-btn" href="{{ route('records.index') }}">Parking Records</a>
 
         </nav>
     </header>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CarParkingController;
 use App\Http\Controllers\ParkingRegistryController;
+use App\Http\Controllers\ParkingRecordController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CarParkingController::class, 'showAllCarParkingStatus'])->name('home');
@@ -50,5 +51,5 @@ Route::delete('/users/{entry}', [App\Http\Controllers\ParkingRegistryController:
 
 // ----- [ADD] end -----
 
-
-
+Route::get('/parking-records', [ParkingRecordController::class, 'index'])
+    ->name('records.index');
