@@ -130,5 +130,35 @@ class ParkingRegistryController extends Controller
             : $user->fill($data)->save();
 
         return redirect()->route('users.index')->with('ok', 'User updated.');
-    } 
+    }
+
+    // ----- [ADD] begin: store() & destroy() -----
+
+    /**
+     * Store a newly created record.
+     */
+    public function store(Request $request)
+    {
+        $data = $request->validate(
+            \App\Models\ParkingRegistry::rules(update: false),
+            \App\Models\ParkingRegistry::messages()
+        );
+
+        \App\Models\ParkingRegistry::create($data);
+
+        return redirect()->route('users.index')->with('ok', 'User added successfully.');
+    }
+
+    /**
+     * Remove the specified record.
+     */
+    public function destroy($entry)
+    {
+        $user = \App\Models\ParkingRegistry::findOrFail($entry);
+        $user->delete();
+
+        return redirect()->route('users.index')->with('ok', 'User deleted successfully.');
+    }
+
+    // ----- [ADD] end -----
 }
