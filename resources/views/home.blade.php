@@ -24,9 +24,8 @@
             <h1>CAMPUS<br>PARKING<br>SYSTEM</h1>
         </div>
 
-        <div class="logo-placeholder">
-          
-        </div>
+            <img src="{{ asset('LOGO.webp') }}" alt="Logo" class="logo-image">
+        
     </main>
 </body>
 </html>
