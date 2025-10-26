@@ -179,4 +179,20 @@ class ParkingRegistry extends Model
         return $q->orderBy($field, $dir)
                  ->orderBy('Full_Name'); 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
 }

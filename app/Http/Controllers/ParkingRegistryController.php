@@ -16,7 +16,7 @@ class ParkingRegistryController extends Controller
         $sort   = $request->query('sort', 'Entry_id');
         $dir    = strtolower($request->query('dir', 'asc')) === 'desc' ? 'desc' : 'asc';
 
-        // Use the REAL column names (no spaces)
+        // Use the REAL column names
         $sortMap = [
             'Entry_id'       => 'Entry_id',
             'Full_Name'      => 'Full_Name',
@@ -132,7 +132,7 @@ class ParkingRegistryController extends Controller
         return redirect()->route('users.index')->with('ok', 'User updated.');
     }
 
-    // ----- [ADD] begin: store() & destroy() -----
+    // ----- [ADD] begin: add() & delete() -----
 
     /**
      * Store a newly created record.
@@ -161,4 +161,20 @@ class ParkingRegistryController extends Controller
     }
 
     // ----- [ADD] end -----
+
+
+    //search function
+    public function index(Request $request)
+    {
+     $q = $request->input('q');
+
+     $userData = ParkingRegistry::when($q, function($query) use ($q){
+        $query->where('Full_Name','like',"%{$q}%")
+              ->orWhere('Id_Number','like',"%{$q}%")
+              ->orWhere('Plate_Number','like',"%{$q}%")
+              ->orWhere('Department','like',"%{$q}%");
+        })->get();
+
+        return view('userData', compact('userData'));
+    }
 }
