@@ -21,23 +21,33 @@
 
     {{-- ----- [ADD] begin: Add button + form (right-aligned toolbar) ----- --}}
     <div class="actions-top">
-      <form method="POST" action="{{ route('users.store') }}" class="add-form">
-        @csrf
-        <input type="text" name="Full_Name" placeholder="Full Name" required>
-        <input type="text" name="Id_Number" placeholder="ID Number" required>
-        <input type="text" name="Contact_Number" placeholder="Contact Number">
-        <input type="text" name="Position" placeholder="Position">
-        <input type="text" name="Plate_Number" placeholder="Plate Number">
-        <select name="Vehicle_Type" required>
-          <option value="">Select Type</option>
-          <option value="Car">Car</option>
-          <option value="Motorcycle">Motorcycle</option>
-        </select>
-        <input type="text" name="Department" placeholder="Department">
-        <input type="text" name="Parking_counts" placeholder="Parking Counts">
-        <button type="submit" class="add-btn">Add</button>
-      </form>
-    </div>
+  <!-- Add form (TOP) -->
+  <form method="POST" action="{{ route('users.store') }}" class="add-form">
+    @csrf
+    <input type="text" name="Full_Name" placeholder="Full Name" required>
+    <input type="text" name="Id_Number" placeholder="ID Number" required>
+    <input type="text" name="Contact_Number" placeholder="Contact Number">
+    <input type="text" name="Position" placeholder="Position">
+    <input type="text" name="Plate_Number" placeholder="Plate Number">
+    <select name="Vehicle_Type" required>
+      <option value="">Vehicle Type</option>
+      <option value="Car">Car</option>
+      <option value="Motorcycle">Motorcycle</option>
+    </select>
+    <input type="text" name="Department" placeholder="Department">
+    <input type="text" name="Parking_counts" placeholder="Parking Counts">
+    <button type="submit" class="add-btn">Add</button>
+  </form>
+
+  <!-- Search form (BELOW) -->
+  <form method="GET" action="{{ route('users.index') }}" class="search-form">
+    <input type="text" name="q" placeholder="Search user..." value="{{ request('q') }}">
+    <button type="submit" class="search-btn">Search</button>
+    @if(request('q'))
+      <a href="{{ route('users.index') }}" class="clear-link">Clear</a>
+    @endif
+  </form>
+</div>
     {{-- ----- [ADD] end ----- --}}
 
     <section class="panel">

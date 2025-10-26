@@ -49,3 +49,6 @@ Route::delete('/users/{entry}', [App\Http\Controllers\ParkingRegistryController:
     ->name('users.destroy');
 
 // ----- [ADD] end -----
+
+
+
