@@ -43,7 +43,7 @@ body{
 
 /* ===== Layout ===== */
 .container {
-  max-width: 1000px; /* smaller layout width */
+  max-width: 1000px; 
   margin: 40px auto;
   padding: 0 20px;
 }
@@ -74,10 +74,10 @@ h1 {
 /* ===== Table ===== */
 table {
   width: 100%;
-  border-collapse: collapse; /* ensures clean fit */
+  border-collapse: collapse; 
   font-size: 14px;
   text-align: left;
-  border-spacing: 0; /* removes spacing between cells */
+  border-spacing: 0; 
 }
 
 thead th {
@@ -97,7 +97,7 @@ tbody td {
 
 thead th,
 tbody td {
-  width: calc(100% / 3); /* divide equally for 3 columns */
+  width: calc(100% / 3); 
 }
 
 tbody tr:hover {
