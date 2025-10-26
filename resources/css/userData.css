@@ -34,8 +34,8 @@ header{
 /* ===== Page layout ===== */
 .container{
   max-width:1400px;
-  margin:90px auto 30px;   /* leave room for fixed header */
-  padding:20px 30px;       /* side & vertical breathing room */
+  margin:90px auto 30px;  
+  padding:20px 30px;     
 }
 .page-title{
   font-size:24px;
@@ -68,11 +68,11 @@ header{
 /* ===== Toolbar: Search (left) + Add form (right) ===== */
 .actions-top{
   display:flex;
-  justify-content:space-between;  /* search left, add right */
+  justify-content:space-between;  
   align-items:flex-start;
   gap:12px;
-  flex-wrap:wrap;                 /* stack on small screens */
-  margin:8px 0 20px;              /* gap under the typing area */
+  flex-wrap:wrap;              
+  margin:8px 0 20px;             
 }
 
 /* -------- Shared form input styles -------- */
@@ -118,8 +118,8 @@ input::placeholder{ color:#98a2ff77 }
 .add-form{
   display:flex;
   flex-wrap:wrap;
-  gap:12px;                /* gaps between inputs */
-  margin-bottom:0;         /* actions-top controls spacing */
+  gap:12px;              
+  margin-bottom:0;        
 }
 .add-btn{
   background:#2b3cae;
@@ -135,7 +135,7 @@ input::placeholder{ color:#98a2ff77 }
 
 /* ===== Table ===== */
 .table-wrap{
-  overflow:auto;           /* both axes: enables horizontal/vertical scroll */
+  overflow:auto;          
   max-height:75vh;
   position:relative;
   -webkit-overflow-scrolling:touch;

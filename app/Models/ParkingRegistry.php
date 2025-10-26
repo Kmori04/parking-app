@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ParkingRecord;
 
 class ParkingRegistry extends Model
 {
@@ -183,16 +184,9 @@ class ParkingRegistry extends Model
 
 
 
-
-
-
-
-
-
-
-
-
-    
-
+             public function parkingRecords()
+         {
+            return $this->hasMany(ParkingRecord::class, 'ParkerDetails_Table_Entry_id', 'Entry_id');
+            }
 
 }
