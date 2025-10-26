@@ -19,6 +19,27 @@
       <div class="flash success">{{ session('ok') }}</div>
     @endif
 
+    {{-- ----- [ADD] begin: Add button + form (right-aligned toolbar) ----- --}}
+    <div class="actions-top">
+      <form method="POST" action="{{ route('users.store') }}" class="add-form">
+        @csrf
+        <input type="text" name="Full_Name" placeholder="Full Name" required>
+        <input type="text" name="Id_Number" placeholder="ID Number" required>
+        <input type="text" name="Contact_Number" placeholder="Contact Number">
+        <input type="text" name="Position" placeholder="Position">
+        <input type="text" name="Plate_Number" placeholder="Plate Number">
+        <select name="Vehicle_Type" required>
+          <option value="">Select Type</option>
+          <option value="Car">Car</option>
+          <option value="Motorcycle">Motorcycle</option>
+        </select>
+        <input type="text" name="Department" placeholder="Department">
+        <input type="text" name="Parking_counts" placeholder="Parking Counts">
+        <button type="submit" class="add-btn">Add</button>
+      </form>
+    </div>
+    {{-- ----- [ADD] end ----- --}}
+
     <section class="panel">
       <h2>All Registered Users</h2>
       <div class="table-wrap">
@@ -55,6 +76,17 @@
                 </td>
                 <td class="actions">
                   <a class="btn btn-edit" href="{{ route('users.edit', $user->Entry_id) }}">Edit</a>
+
+                  {{-- ----- [ADD] begin: Delete action ----- --}}
+                  <form method="POST"
+                        action="{{ route('users.destroy', $user->Entry_id) }}"
+                        onsubmit="return confirm('Delete this user?');"
+                        style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="delete-btn">Delete</button>
+                  </form>
+                  {{-- ----- [ADD] end ----- --}}
                 </td>
               </tr>
             @endforeach
