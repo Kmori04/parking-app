@@ -53,3 +53,26 @@ Route::delete('/users/{entry}', [App\Http\Controllers\ParkingRegistryController:
 
 Route::get('/parking-records', [ParkingRecordController::class, 'index'])
     ->name('records.index');
+
+// ----- [ADD] begin: parking records CRUD routes -----
+
+// Add a new parking record
+Route::post('/parking-records', [ParkingRecordController::class, 'store'])
+    ->name('records.store');
+
+// Optional edit page (kept for future use)
+Route::get('/parking-records/{record}/edit', [ParkingRecordController::class, 'edit'])
+    ->whereNumber('record')
+    ->name('records.edit');
+
+// Update an existing record
+Route::put('/parking-records/{record}', [ParkingRecordController::class, 'update'])
+    ->whereNumber('record')
+    ->name('records.update');
+
+// Delete a record
+Route::delete('/parking-records/{record}', [ParkingRecordController::class, 'destroy'])
+    ->whereNumber('record')
+    ->name('records.destroy');
+
+// ----- [ADD] end -----

@@ -112,3 +112,175 @@ tbody tr:hover {
   background: rgba(255, 255, 255, 0.05);
   padding: 10px;
 }
+
+/* ======================================================================
+   ADDITIONS FOR CRUD UI (Add bar + Edit/Delete buttons)
+   ====================================================================== */
+
+/* Flash (optional) */
+.flash {
+  max-width: 1000px;
+  margin: 10px auto;
+  padding: .65rem .9rem;
+  border-radius: .5rem;
+  font-weight: 600;
+}
+.flash.success { background:#123e1d; color:#b5ffcc; border:1px solid #1e7a39 }
+
+/* Add bar (top-right) */
+.actions-top{
+  max-width: 1000px;
+  margin: 0 auto 12px;
+  padding: 0 20px;
+  display:flex;
+  justify-content:flex-end;
+  gap: 8px;
+}
+.add-form{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.add-form input,
+.add-form select{
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid #3b3f7f;
+  background:#0f1538;
+  color:#fff;
+  font-size:13px;
+}
+.add-btn{
+  background:#2b3cae;
+  color:#fff;
+  border:none;
+  padding:6px 12px;
+  border-radius:6px;
+  font-weight:700;
+  cursor:pointer;
+  transition:filter .2s, background .2s;
+}
+.add-btn:hover{ background:#3d52ff }
+
+/* Info cell layout (left text + right actions) */
+.info-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.info-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* Buttons */
+.btn{
+  display:inline-block;
+  font-weight:700;
+  border:none;
+  padding:6px 10px;
+  border-radius:6px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:filter .2s, background .2s;
+}
+.btn-edit{
+  background:#2b74ff;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.15);
+}
+.btn-edit:hover{ filter:brightness(.95) }
+.btn-save{ background:#1f8736; color:#fff }
+.btn-save:hover{ filter:brightness(.95) }
+.btn-delete{ background:#a52020; color:#fff }
+.btn-delete:hover{ background:#e03535 }
+
+/* Inline edit (details/summary) */
+.inline-edit summary{
+  list-style:none;
+  cursor:pointer;
+}
+.inline-edit summary::-webkit-details-marker{ display:none; }
+
+.inline-edit-form{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+.inline-edit-form input{
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid #3b3f7f;
+  background:#0f1538;
+  color:#fff;
+  font-size:13px;
+}
+
+.inline-delete{ display:inline }
+
+/* ======================================================================
+   PARKER INFO CARD DESIGN (cleaner look)
+   ====================================================================== */
+.parker-info {
+  background: rgba(15, 21, 56, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  transition: background 0.25s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.parker-info:hover {
+  background: rgba(25, 33, 85, 0.85);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.parker-id {
+  font-size: 12px;
+  color: #9aa6ff;
+  opacity: 0.85;
+  font-weight: 600;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.parker-main {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.parker-main span {
+  color: #b4c2ff;
+}
+
+.parker-contact {
+  font-size: 13px;
+  color: #aab8ff;
+  margin-top: 3px;
+  opacity: 0.85;
+}
+
+.parker-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.parker-actions .btn-edit,
+.parker-actions .btn-delete {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
