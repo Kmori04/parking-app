@@ -12,78 +12,107 @@
     <h1>Parking Records</h1>
   </header>
 
-  {{-- ===== Add New Record Section ===== --}}
-  <div class="actions-top" style="text-align:center; margin-bottom:20px;">
-    {{-- Display error or success messages --}}
-    @if ($errors->any())
-      <div style="background:#7f1d1d; color:#fff; padding:10px 15px; border-radius:8px; display:inline-block; margin-bottom:10px;">
-        @foreach ($errors->all() as $error)
-          <div>{{ $error }}</div>
-        @endforeach
-      </div>
-    @elseif (session('ok'))
-      <div style="background:#14532d; color:#fff; padding:10px 15px; border-radius:8px; display:inline-block; margin-bottom:10px;">
+  {{-- Flash & Errors --}}
+  <div style="max-width:1000px;margin:16px auto 0;padding:0 20px;">
+    @if (session('ok'))
+      <div style="background:#14532d;color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;">
         {{ session('ok') }}
       </div>
     @endif
 
-    <form class="add-form" method="POST" action="{{ route('records.store') }}" style="display:inline-flex; gap:8px;">
+    @if ($errors->any())
+      <div style="background:#7f1d1d;color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;">
+        @foreach ($errors->all() as $e)
+          <div>{{ $e }}</div>
+        @endforeach
+      </div>
+    @endif
+  </div>
+
+  {{-- Add new record --}}
+  <div style="max-width:1000px;margin:0 auto 10px;padding:0 20px;display:flex;justify-content:flex-end;gap:10px;">
+    <form method="POST" action="{{ route('records.store') }}" style="display:flex;gap:10px;align-items:center;">
       @csrf
-      <input type="datetime-local" name="Date_occupation" required style="padding:8px; border-radius:6px; border:none;">
-      <input type="number" name="ParkerDetails_Table_Entry_id" placeholder="Parker Entry ID" required style="padding:8px; border-radius:6px; border:none;">
-      <button type="submit" class="add-btn" style="background:#3b47c5; color:#fff; border:none; padding:8px 14px; border-radius:6px; cursor:pointer;">Add</button>
+      <input type="datetime-local"
+             name="Date_occupation"
+             required
+             style="padding:10px;border-radius:8px;border:1px solid #2a3676;background:#0f1538;color:#fff;">
+      <input type="number"
+             name="ParkerDetails_Table_Entry_id"
+             placeholder="Parker Entry ID"
+             min="1"
+             required
+             style="padding:10px;border-radius:8px;border:1px solid #2a3676;background:#0f1538;color:#fff;width:180px;">
+      <button type="submit"
+              style="background:#3b82f6;color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer;">
+        Add
+      </button>
     </form>
   </div>
 
+  {{-- Records Table --}}
   <div class="panel">
-    <table>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>Date_occupation</th>
-          <th>Parkers Details / Information</th>
-        </tr>
-      </thead>
-      <tbody>
-        @forelse($records as $r)
+    <div class="table-wrap">
+      <table>
+        <thead>
           <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $r->Date_occupation }}</td>
-            <td>
-              <div class="parker-info" style="background:#0f1538; padding:10px 14px; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.3);">
-                <div style="color:#a9b5ff; font-size:13px; margin-bottom:4px;">ID: {{ $r->ParkerDetails_Table_Entry_id }}</div>
-                <div style="font-weight:600; font-size:15px; margin-bottom:3px;">
-                  {{ $r->parker_full_name ?? 'Unknown' }}
-                  <span style="color:#a9b5ff;"> • {{ $r->parker_plate ?? 'No Plate' }}</span>
-                  <span style="color:#a9b5ff;"> • {{ $r->parker_position ?? 'N/A' }}</span>
-                </div>
-                <div style="font-size:14px; color:#b4b8f9;">📞 {{ $r->parker_contact ?? 'No Contact' }}</div>
+            <th style="width:80px;">No.</th>
+            <th>Date_occupation</th>
+            <th>Parkers Details / Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse($records as $r)
+            <tr>
+              {{-- Sequential number instead of Record_ID --}}
+              <td>{{ $loop->iteration }}</td>
 
-                <div class="parker-actions" style="margin-top:8px;">
-                  <a href="{{ route('records.edit', $r->Record_ID) }}" class="btn btn-edit" 
-                     style="background:#3b82f6; color:white; padding:6px 10px; border-radius:6px; text-decoration:none; margin-right:6px;">
-                    Edit
-                  </a>
-                  <form class="inline-delete" method="POST" 
-                        action="{{ route('records.destroy', $r->Record_ID) }}" style="display:inline;">
+              {{-- Inline date edit form --}}
+              <td>
+                <form method="POST" action="{{ route('records.update', $r->Record_ID) }}" style="display:flex;gap:10px;align-items:center;">
+                  @csrf
+                  @method('PUT')
+                  <input type="datetime-local"
+                         name="Date_occupation"
+                         value="{{ \Carbon\Carbon::parse($r->Date_occupation)->format('Y-m-d\TH:i') }}"
+                         style="padding:8px;border-radius:8px;border:1px solid #2a3676;background:#0f1538;color:#fff;">
+                  <button type="submit"
+                          style="background:#2563eb;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer;">
+                    Save
+                  </button>
+                </form>
+              </td>
+
+              {{-- Parker details --}}
+              <td>
+                <div style="background:#0f1538;border:1px solid #263270;border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center;gap:14px;">
+                  <div>
+                    <div style="color:#a9b5ff;font-weight:700;margin-bottom:4px;">ID: {{ $r->ParkerDetails_Table_Entry_id }}</div>
+                    @isset($r->parker_info)
+                      {!! $r->parker_info !!}
+                    @endisset
+                  </div>
+
+                  <form method="POST" action="{{ route('records.destroy', $r->Record_ID) }}"
+                        onsubmit="return confirm('Delete this record?')" style="margin:0;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-delete" 
-                            style="background:#b91c1c; color:white; padding:6px 10px; border:none; border-radius:6px; cursor:pointer;">
+                    <button type="submit"
+                            style="background:#b91c1c;color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:700;cursor:pointer;">
                       Delete
                     </button>
                   </form>
                 </div>
-              </div>
-            </td>
-          </tr>
-        @empty
-          <tr>
-            <td colspan="3" class="no-data">No records found.</td>
-          </tr>
-        @endforelse
-      </tbody>
-    </table>
+              </td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="3" class="no-data">No records found.</td>
+            </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
   </div>
 </body>
 </html>
