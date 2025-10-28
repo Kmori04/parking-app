@@ -25,17 +25,72 @@
   <form method="POST" action="{{ route('users.store') }}" class="add-form">
     @csrf
     <input type="text" name="Full_Name" placeholder="Full Name" required>
-    <input type="text" name="Id_Number" placeholder="ID Number" required>
-    <input type="text" name="Contact_Number" placeholder="Contact Number">
-    <input type="text" name="Position" placeholder="Position">
-    <input type="text" name="Plate_Number" placeholder="Plate Number">
+
+
+    <input type="text" name="Id_Number" placeholder="ID Number (8 digits)" 
+      required
+      pattern="\d{8}"
+      maxlength="8"
+      inputmode="numeric"
+      oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,8);">
+
+
+    <input type="text" name="Contact_Number" placeholder="Contact Number (11 digits)"
+      pattern="\d{11}"
+      maxlength="11"
+      inputmode="numeric"
+      oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0,11);">
+
+
+    <select name="Position" required>
+    <option value="">Select Position</option>
+    <option value="Student">Student</option>
+    <option value="Guest">Guest</option>
+    <option value="Professor">Professor</option>
+    <option value="School Staff">School Staff</option>
+    </select>
+
+
+
+    <input type="text" name="Plate_Number" placeholder="Plate Number"
+     maxlength="11"
+       pattern="[A-Za-z]{1,5}\s[0-11]{0,5}"
+       oninput="
+         // Allow only letters (A–Z) then space then digits
+         let val = this.value.toUpperCase().replace(/[^A-Z0-9 ]/g, '');
+         // Enforce a single space between letters and digits
+         val = val.replace(/^([A-Z]{0,5})(\s?)([0-9]{0,5}).*$/, (_, l, s, n) => 
+           l + (n.length > 0 ? ' ' : '') + n
+         );
+         this.value = val;">
+
+
     <select name="Vehicle_Type" required>
       <option value="">Vehicle Type</option>
       <option value="Car">Car</option>
       <option value="Motorcycle">Motorcycle</option>
     </select>
-    <input type="text" name="Department" placeholder="Department">
-    <input type="text" name="Parking_counts" placeholder="Parking Counts">
+
+    <select name="Department" required>
+      <option value="">Select Department</option>
+      <option value="CCS">CCS</option>
+      <option value="COA">COA</option>
+      <option value="CBA">CBA</option>
+      <option value="CASED">CASED</option>
+      <option value="CON">CON</option>
+      <option value="COE">COE</option>
+      <option value="—">—</option>
+    </select>
+
+    <select name="Parking_counts" required>
+      <option value="">Select Parking Count</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="No Parking Limit">No Parking Limit</option>
+      <option value="Temporary Parking">Temporary Parking</option>
+    </select>
+
+
     <button type="submit" class="add-btn">Add</button>
   </form>
 
