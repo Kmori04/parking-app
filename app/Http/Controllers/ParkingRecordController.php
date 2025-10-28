@@ -7,70 +7,53 @@ use Illuminate\Http\Request;
 
 class ParkingRecordController extends Controller
 {
+    // LIST
     public function index()
     {
+        // Keep your current ordering; the view renders parker_info from the model.
         $records = ParkingRecord::orderBy('Record_ID')->get();
         return view('ParkingRecords', compact('records'));
     }
 
-    // ===== STORE (Add New Record) =====
+    // CREATE (Add)
     public function store(Request $request)
     {
-        // Validate with friendly rules
-        $validated = $request->validate([
-            'Date_occupation' => ['required', 'date'],
-            'ParkerDetails_Table_Entry_id' => [
-                'required',
-                'integer',
-                'exists:parkerdetails_table,Entry_id'
+        $validated = $request->validate(
+            [
+                'Date_occupation'               => ['required', 'date'],
+                'ParkerDetails_Table_Entry_id'  => ['required', 'integer', 'exists:parkerdetails_table,Entry_id'],
             ],
-        ], [
-            // Custom messages
-            'ParkerDetails_Table_Entry_id.exists' => 'Invalid Parker ID — this ID does not exist in Parker Details.',
-        ]);
+            [
+                'ParkerDetails_Table_Entry_id.exists' => 'Invalid Parker ID — that ID does not exist in Parker Details.',
+            ]
+        );
 
-        // If valid, save record
         ParkingRecord::create($validated);
 
-        // Redirect back with success message
         return redirect()
             ->route('records.index')
             ->with('ok', 'Record successfully added.');
     }
 
-    // ===== EDIT (Show Edit Page) =====
-    public function edit($record)
-    {
-        $rec = ParkingRecord::findOrFail($record);
-        $parkers = \App\Models\ParkingRegistry::orderBy('Full_Name')
-            ->get(['Entry_id', 'Full_Name', 'Plate_Number', 'Position', 'Contact_Number']);
-
-        return view('editRecord', compact('rec', 'parkers'));
-    }
-
-    // ===== UPDATE =====
+    // UPDATE (Edit date only)
     public function update(Request $request, $record)
     {
-        $data = $request->validate([
+        // ✅ Only validate the date for updates
+        $validated = $request->validate([
             'Date_occupation' => ['required', 'date'],
-            'ParkerDetails_Table_Entry_id' => [
-                'required',
-                'integer',
-                'exists:parkerdetails_table,Entry_id'
-            ],
-        ], [
-            'ParkerDetails_Table_Entry_id.exists' => 'Invalid Parker ID — this ID does not exist in Parker Details.',
         ]);
 
         $rec = ParkingRecord::findOrFail($record);
-        $rec->update($data);
+        $rec->update([
+            'Date_occupation' => $validated['Date_occupation'],
+        ]);
 
         return redirect()
             ->route('records.index')
-            ->with('ok', 'Record successfully updated.');
+            ->with('ok', 'Date updated.');
     }
 
-    // ===== DELETE =====
+    // DELETE
     public function destroy($record)
     {
         $rec = ParkingRecord::findOrFail($record);
@@ -78,6 +61,6 @@ class ParkingRecordController extends Controller
 
         return redirect()
             ->route('records.index')
-            ->with('ok', 'Record deleted successfully.');
+            ->with('ok', 'Record deleted.');
     }
 }
