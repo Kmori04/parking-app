@@ -48,14 +48,20 @@ class ParkingRegistry extends Model
     {
         return [
             'Full_Name'       => ['required','string','min:1','max:255'],
-            'Id_Number'       => ['required','string','max:50'],
-            'Contact_Number'  => ['nullable','string','max:50'],
+            'Id_Number'       => ['required','digits:8'],
+            'Contact_Number'  => ['nullable','digits:11'],
             'Position'        => ['nullable','string','max:100'],
             'Plate_Number'    => ['nullable','string','max:50'],
             'Vehicle_Type'    => ['required','in:Car,Motorcycle'],
             'Department'      => ['nullable','string','max:100'],
             'Parking_counts'  => ['nullable','string','max:50'],
         ];
+    }
+
+    public function setPlateNumberAttribute($value)
+    {
+    // Automatically uppercase and trim extra spaces before saving
+    $this->attributes['Plate_Number'] = strtoupper(trim($value));
     }
 
     public static function messages(): array
